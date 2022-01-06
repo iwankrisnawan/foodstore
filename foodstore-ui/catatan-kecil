@@ -1,0 +1,13 @@
+JANGAN PERNAH RUN SERVER-EXPRESS PADA GIT BASH
+
+Mengenal Role ,membuat user
+untuk info tentang user pada mongodb
+
+
+untuk ingin tau kegunaan dari code pada file, anda bisa mengetahuinya
+dengan mencari nama filenya pada ebook dan di sana akan di jelaskan
+setiap baris pada filenya
+
+
+"ini karena fungsi yang dimasukkan ke React.useEffect tidak boleh menggunakan async"
+"Pada komponen <Responsive> di atas kita memberikan nilai pada prop desktop yaitu 4, artinya pada desktop komponen di dalamnya akan dibuat menjadi 4 kolom. Kemudian untuk prop tablet bernilai 4 juga artinya pada tampilan tablet adalah 4 kolom sedangkan pada prop mobile bernilai 2 yang artinya pada tampilan mobile menjadi 2 kolom."
