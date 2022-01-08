@@ -1,139 +1,186 @@
 import React from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {useHistory} from 'react-router-dom';
 import {
-	SideNav, 
-	LayoutSidebar, 
-	Responsive, 
-	CardProduct, 
-	Pagination,
-	InputText,
-	Pill
+  useDispatch,
+  useSelector
+} from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import {
+  SideNav,
+  LayoutSidebar,
+  Responsive,
+  CardProduct,
+  Pagination,
+  InputText,
+  Pill
 } from 'upkit';
-
 
 import BounceLoader from 'react-spinners/BounceLoader';
 import menus from './menus';
 import TopBar from '../../components/TopBar';
-import {fetchProducts} from '../../features/Products/actions';
-import {config} from '../../config';
-import {tags} from './tags';
+import { fetchProducts } from '../../features/Products/actions';
+import { config } from '../../config';
+import { tags } from './tags';
 import Cart from '../../components/Cart';
-import {addItem, removeItem} from '../../features/Cart/actions';
+import {
+  addItem,
+  removeItem
+} from '../../features/Cart/actions';
 
 import {
-	fetchProduct,
-	setPage,
-	goToNextPage,
-	goToPrevPage,
-	setKeyword,
-	setCategory,
-	toggleTag
+  fetchProduct,
+  setPage,
+  goToNextPage,
+  goToPrevPage,
+  setKeyword,
+  setCategory,
+  toggleTag
 } from '../../features/Products/actions';
 
+export default function Home() {
+  let dispatch = useDispatch();
+  let products = useSelector(
+    state => state.products
+  );
+  let cart = useSelector(state => state.cart);
+  let history = useHistory();
 
-export default function Home(){
+  React.useEffect(() => {
+    dispatch(fetchProducts());
+  }, [
+    dispatch,
+    products.currentPage,
+    products.keyword,
+    products.category,
+    products.tags
+  ]);
 
-	let dispatch = useDispatch();
-	let products = useSelector(state => state.products);
-	let cart = useSelector(state => state.cart);
-	let history = useHistory();
+  return (
+    <div>
+      <LayoutSidebar
+        sidebar={
+          <SideNav
+            items={menus}
+            verticalAlign="top"
+            onChange={category =>
+              dispatch(setCategory(category))
+            }
+          />
+        }
+        content={
+          <div className="md:flex md:flex-row-reverse w-full mr-5 h-full min-h-screen">
+            <div className="w-full md:w-3/4 pl-5 pb-10">
+              <TopBar />
 
-	React.useEffect(() => {
-		dispatch(fetchProducts())
-	}, [
-		dispatch, 
-		products.currentPage, 
-		products.keyword, 
-		products.category,
-		products.tags
-		]);
+              <div className="w-full text-center mb-10 mt-5">
+                <InputText
+                  fullRound
+                  value={products.keyword}
+                  placeholder="cari makanan favoritmu..."
+                  fitContainer
+                  onChange={e => {
+                    dispatch(
+                      setKeyword(e.target.value)
+                    );
+                  }}
+                />
+              </div>
 
-	return(
-		<div>
-			<LayoutSidebar 
-				sidebar={<SideNav items={menus} verticalAlign="top" onChange={category => dispatch(setCategory(category))}/>}
-				content={
-					<div className="md:flex md:flex-row-reverse w-full mr-5 h-full min-h-screen">
+              <div className="mb-5 pl-2 flex w-3/3 overflow-auto pb-5">
+                {tags[products.category].map(
+                  (tag, index) => {
+                    return (
+                      <div key={index}>
+                        <Pill
+                          text={tag}
+                          icon={tag
+                            .slice(0, 1)
+                            .toUpperCase()}
+                          isActive={products.tags.includes(
+                            tag
+                          )}
+                          onClick={_ =>
+                            dispatch(
+                              toggleTag(tag)
+                            )
+                          }
+                        />
+                      </div>
+                    );
+                  }
+                )}
+              </div>
 
-						<div className="w-full md:w-3/4 pl-5 pb-10">
-							<TopBar/>
+              {products.status === 'process' &&
+              !products.data.length ? (
+                <div className="flex justify-center">
+                  <BounceLoader color="red" />
+                </div>
+              ) : null}
 
-							<div className="w-full text-center mb-10 mt-5">
-								<InputText 
-									fullRound
-									value={products.keyword}
-									placeholder ="cari makanan favoritmu..."
-									fitContainer
-									onChange = {e => {
-										dispatch(setKeyword(e.target.value))
-									}}
-								/>
-							</div>
+              <Responsive
+                desktop={3}
+                items="stretch"
+              >
+                {products.data.map(
+                  (product, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="p-2"
+                      >
+                        <CardProduct
+                          title={product.name}
+                          imgUrl={`${config.api_host}/upload/${product.image_url}`}
+                          price={product.price}
+                          onAddToCart={_ =>
+                            dispatch(
+                              addItem(product)
+                            )
+                          }
+                        />
+                      </div>
+                    );
+                  }
+                )}
+              </Responsive>
 
-							<div className="mb-5 pl-2 flex w-3/3 overflow-auto pb-5">
-								{tags[products.category].map((tag, index) => {
-									return(
-										<div key={index}>
-											<Pill
-												text= {tag}
-												icon = {tag.slice(0,1).toUpperCase()}
-												isActive = {products.tags.includes(tag)}
-												onClick = {_ => dispatch(toggleTag(tag))}
-											/>
-										</div>
-									);
-								})}
-							</div>
+              <div className="text-center my-10">
+                <Pagination
+                  totalItems={products.totalItems}
+                  page={products.currentPage}
+                  perPage={products.perPage}
+                  onChange={page =>
+                    dispatch(setPage(page))
+                  }
+                  onNext={_ =>
+                    dispatch(goToNextPage())
+                  }
+                  onPrev={_ =>
+                    dispatch(goToPrevPage())
+                  }
+                />
+              </div>
+            </div>
 
-							{products.status === 'process' && !products.data.length ?
-								<div className="flex justify-center">
-									<BounceLoader color="red" />
-								</div>
-							: null}
-
-							<Responsive desktop = {3} items ="stretch">
-								{products.data.map((product, index) => {
-									return(
-										<div key={index} className="p-2">
-											<CardProduct 
-												title={product.name}
-												imgUrl={`${config.api_host}/upload/${product.image_url}`}
-												price={product.price}
-												onAddToCart={_ => dispatch(addItem(product))}
-											/>
-										</div>
-									)
-								})}
-							</Responsive>
-
-							<div className="text-center my-10">
-								<Pagination
-									totalItems = {products.totalItems}
-									page = {products.currentPage}
-									perPage = {products.perPage}
-									onChange = {page => dispatch(setPage(page))}
-									onNext = {_ => dispatch(goToNextPage())}
-									onPrev = {_ => dispatch(goToPrevPage())}
-								/>
-							</div>
-
-						</div>
-						
-						<div className="w-full md:w-1/4 h-full shadow-lg border-r border-white bg-gray-100">
-							<Cart 
-								items= {cart}
-								onItemInc = {item => dispatch(addItem(item))}
-								onItemDec = {item => dispatch(removeItem(item))}
-								onCheckout = {_ => history.push("/checkout")}
-								/>
-							{/*belum ada items di keranjangan*/}
-						</div>
-					</div>
-
-				}
-				sidebarSize={80}
-			/>
-		</div>
-	)
+            <div className="w-full md:w-1/4 h-full shadow-lg border-r border-white bg-gray-100">
+              <Cart
+                items={cart}
+                onItemInc={item =>
+                  dispatch(addItem(item))
+                }
+                onItemDec={item =>
+                  dispatch(removeItem(item))
+                }
+                onCheckout={_ =>
+                  history.push('/checkout')
+                }
+              />
+              {/*belum ada items di keranjangan*/}
+            </div>
+          </div>
+        }
+        sidebarSize={80}
+      />
+    </div>
+  );
 }
