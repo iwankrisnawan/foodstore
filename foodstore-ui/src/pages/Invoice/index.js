@@ -118,20 +118,20 @@ export default function Invoice() {
             label: 'Payment to',
             value: (
               <div>
-                {config.owner}
-                <br />
-                {config.contact}
-                <br />
-                {config.billing.account_no}
-                <br />
-                {config.billing.bank_name}
-
+                {config.owner} <br />
+                {config.contact} <br />
+                {config.billing.account_no} <br />
+                {config.billing.bank_name} <br />
                 {invoice.payment_status !== 'paid' ? (
                   <>
                     <Button onClick={handlePayment} disabled={initiatingPayment}>
-                      {' '}
-                      {initiatingPayment ? 'Loading ... ' : 'Bayar dengan Midtrans'}{' '}
+                      {initiatingPayment ? 'Loading ... ' : 'Bayar dengan Midtrans'}
                     </Button>
+                  </>
+                ) : null}
+                {requestError ? (
+                  <>
+                    <div className="text-red-400">Terjadi kesalahan saat meminta token untuk pembayaran.</div>
                   </>
                 ) : null}
               </div>
