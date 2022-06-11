@@ -67,6 +67,7 @@ export default function Invoice() {
       setRequestError(true);
       return;
     }
+
     setInitiating(false);
     window.snap.pay(token);
   };
@@ -125,7 +126,8 @@ export default function Invoice() {
                 {invoice.payment_status !== 'paid' ? (
                   <>
                     <Button onClick={handlePayment} disabled={initiatingPayment}>
-                      {initiatingPayment ? 'Loading ... ' : 'Bayar dengan Midtrans'}
+                      {' '}
+                      {initiatingPayment ? 'Loading ... ' : 'Bayar dengan Midtrans'}{' '}
                     </Button>
                   </>
                 ) : null}
