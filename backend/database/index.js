@@ -5,13 +5,18 @@ const mongoose = require("mongoose");
 const { dbHost, dbName, dbPort, dbUser, dbPass } = require("../app/config");
 
 // (3) connect ke MongoDB menggunakan konfigurasi yang telah kita import
+// original
 // mongoose
 //   .connect(`mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`,
 //     {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
 
-mongoose.connect(
-  `mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`
-);
+// fix
+mongoose
+  .connect(`mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`);
+
+// mongoose.connect(
+//   `mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`
+// );
 
 // mongodb://myDBReader:D1fficultP%40ssw0rd@mongodb0.example.com:27017/?authSource=admin
 
