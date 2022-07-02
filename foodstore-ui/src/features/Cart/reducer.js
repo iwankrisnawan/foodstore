@@ -9,6 +9,8 @@ export default function reducer(state = initialState, action){
 
     case ADD_ITEM:
       if(state.find(item => item._id === action.item._id)){
+        console.log(state.find(item => item._id === action.item._id));
+        
         return state.map(item => ({...item, qty: item._id === action.item._id ? item.qty + 1 : item.qty}));
       } else {
         return [...state, {...action.item, qty: 1}]; 
