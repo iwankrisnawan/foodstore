@@ -4,6 +4,7 @@ import store from '../app/store';
 import {setItem} from '../features/Cart/actions';
 
 export async function saveCart(token, cart){
+	console.log(cart);
 	return await axios.put(`${config.api_host}/api/carts`, {items:cart}, {
 		headers:{
 			authorization:`Bearer ${token}`

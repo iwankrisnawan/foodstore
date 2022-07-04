@@ -21,7 +21,7 @@ function listener(){
 	}
 
 	if(currentCart !== previousCart){
-		console.log(currentCart);
+		// console.log(currentCart);
 		localStorage.setItem('cart', JSON.stringify(currentCart));
 
 		//saat cart berubah
