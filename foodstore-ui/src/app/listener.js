@@ -1,37 +1,37 @@
-import store from './store';
-import {saveCart} from '../api/cart';
+import store from "./store";
+import { saveCart } from "../api/cart";
 
 let currentAuth;
 let currentCart;
 
-function listener(){
-	let previousAuth = currentAuth;
-	let previousCart = currentCart;
+function listener() {
+  let previousAuth = currentAuth;
+  let previousCart = currentCart;
 
-	currentAuth = store.getState().auth;
-	currentCart = store.getState().cart;
+  currentAuth = store.getState().auth;
+  currentCart = store.getState().cart;
 
-	let {token} = currentAuth;
+  let { token } = currentAuth;
 
-	if(currentAuth !== previousAuth){
-		localStorage.setItem('auth', JSON.stringify(currentAuth));
+  if (currentAuth !== previousAuth) {
+    console.log(currentAuth);
+    localStorage.setItem("auth", JSON.stringify(currentAuth));
 
-		// saat auth berubah
-		saveCart(token, currentCart); // lihat pada file saveCart
-	}
+    // saat auth berubah
+    saveCart(token, currentCart); // lihat pada file saveCart
+  }
 
-	if(currentCart !== previousCart){
-		// console.log(currentCart);
-		localStorage.setItem('cart', JSON.stringify(currentCart));
+  if (currentCart !== previousCart) {
+    console.log(currentCart);
+    localStorage.setItem("cart", JSON.stringify(currentCart));
 
-		//saat cart berubah
-		saveCart(token, currentCart);
-	}
-
+    //saat cart berubah
+    saveCart(token, currentCart);
+  }
 }
 
-function listen(){
-	store.subscribe(listener)
+function listen() {
+  store.subscribe(listener);
 }
 
 export { listen };

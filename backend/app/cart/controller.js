@@ -45,6 +45,9 @@ async function update(req, res, next){
     });
 
     let dataUpdate = {}
+
+    console.log(cartItems);
+
     await CartItem.bulkWrite(cartItems.map(item => {
       dataUpdate = {
         updateOne: {
