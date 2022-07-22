@@ -54,13 +54,15 @@ export default function SelectWilayah({ tingkat, kodeInduk, onChange, value }) {
   React.useEffect(() => {
     setIsFetching(true);
     axios
-      .get(
-        `${config.api_host}/api/wilayah/${tingkat}?
-kode_induk=${kodeInduk}`
-      )
-      .then(({ data }) => setData(data))
-      .finally((_) => setIsFetching(false));
+      .get(`${config.api_host}/api/wilayah/${tingkat}?kode_induk=${kodeInduk}`)
+      .then(({ data }) => {
+        if (!data.error) {
+          setData(data);
+        }
+      })
+      .finally(() => setIsFetching(false));
   }, [kodeInduk, tingkat]);
+
   return (
     <Select
       options={data.map((wilayah) => ({
@@ -69,9 +71,14 @@ kode_induk=${kodeInduk}`
       }))}
       onChange={onChange}
       value={value}
+      isLoading={isFetching}
+      isDisabled={isFetching || !data.length}
     />
   );
 }
+SelectWilayah.defaultProps = {
+  tingkat: "provinsi",
+};
 SelectWilayah.propTypes = {
   tingkat: oneOf(["provinsi", "kabupaten", "kecamatan", "desa"]),
   kodeInduk: oneOfType([number, string]),
