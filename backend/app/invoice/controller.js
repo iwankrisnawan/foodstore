@@ -139,7 +139,6 @@ async function handleMidtransNotification(req, res) {
   }
 }
 
-
 module.exports = {
   show,
   initiatePayment,
