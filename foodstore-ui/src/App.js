@@ -74,7 +74,11 @@ function App() {
               <Logout />
             </Route>
 
-            <Route path="/" component={Home} />
+            <Route path="/">
+              <GuardRoute>
+                <Home />
+              </GuardRoute>
+            </Route>
             {/*route ini harus di letakkan paling bawah*/}
           </Switch>
         </Router>

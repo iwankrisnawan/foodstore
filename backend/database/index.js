@@ -14,6 +14,8 @@ const { dbHost, dbName, dbPort, dbUser, dbPass } = require("../app/config");
 mongoose
   .connect(`mongodb://${dbUser}:${dbPass}@${dbHost}:${dbPort}/${dbName}?authSource=admin`);
 
+// mongoose.connect(`mongodb+srv://kadekiwan:hHWva2TOXeTSAF5c@cluster0.ezxlg.mongodb.net/foodstore?retryWrites=true&w=majority`);
+
 // mongoose.connect(
 //   `mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`
 // );

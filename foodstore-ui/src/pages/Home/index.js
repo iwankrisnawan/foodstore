@@ -14,14 +14,13 @@ import {
 import BounceLoader from "react-spinners/BounceLoader";
 import menus from "./menus";
 import TopBar from "../../components/TopBar";
-import { fetchProducts } from "../../features/Products/actions";
 import { config } from "../../config";
 import { tags } from "./tags";
 import Cart from "../../components/Cart";
 import { addItem, removeItem } from "../../features/Cart/actions";
 
 import {
-  fetchProduct,
+  fetchProducts,
   setPage,
   goToNextPage,
   goToPrevPage,
