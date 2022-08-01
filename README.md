@@ -20,3 +20,8 @@ personal project, created with MERN
 ![image](https://user-images.githubusercontent.com/50758780/182170503-15bd9c98-908f-4d03-812f-1c42223f04a0.png)
 
 ![image](https://user-images.githubusercontent.com/50758780/182170677-a4f0525a-b7b0-4524-8514-24289dfcc0aa.png)
+
+![image](https://user-images.githubusercontent.com/50758780/182171491-dada27dd-7249-4f9c-9685-c6b196a8c971.png)
+
+![image](https://user-images.githubusercontent.com/50758780/182171789-63d34428-30bd-4391-ba23-7f16b95ebc55.png)
+
