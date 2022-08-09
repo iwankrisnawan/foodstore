@@ -74,11 +74,11 @@ function App() {
               <Logout />
             </Route>
 
-            <Route path="/">
-              <GuardRoute>
+            <GuardRoute>
+              <Route path="/">
                 <Home />
-              </GuardRoute>
-            </Route>
+              </Route>
+            </GuardRoute>
             {/*route ini harus di letakkan paling bawah*/}
           </Switch>
         </Router>
