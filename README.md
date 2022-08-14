@@ -3,14 +3,14 @@ personal project, created by MERN (mongodb, express, react, nodejs)
 
 ##
 ### setup backend
-1. npm i on backend folder
+1. `npm install` on backend folder
 2. import collection on mongodb_collections folder to your mongodb
 3. change DB_USER, DB_PASS, DB_NAME and MIDTRANS key in file .env as your mongodb or you also can change as atlas could mongodb by change in 'backend/database/index' 
-4. npm run start
+4. `npm run start`
 
 ### setup frontend
-1. npm i on foodstore-ui folder
-2. npm run start
+1. `npm install` on foodstore-ui folder
+2. `npm run start`
 
 ## display
 ![image](https://user-images.githubusercontent.com/50758780/148648303-c3db771e-9cf3-4d6c-81d6-017774e1bfd1.png)
