@@ -5,7 +5,7 @@ personal project, created by MERN (mongodb, express, react, nodejs)
 ### setup backend
 1. `npm install` on backend folder
 2. import collection on mongodb_collections folder to your mongodb
-3. change DB_USER, DB_PASS, DB_NAME and MIDTRANS key in file .env as your mongodb or you also can change as atlas could mongodb by change in 'backend/database/index' 
+3. change DB_USER, DB_PASS, DB_NAME and MIDTRANS key in file .env as your mongodb or you also can change as atlas mongodb cloud by change in 'backend/database/index' 
 4. `npm run start`
 
 ### setup frontend
